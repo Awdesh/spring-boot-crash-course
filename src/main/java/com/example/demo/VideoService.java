@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,5 +29,20 @@ public class VideoService {
             }
         }
         return null;
+    }
+
+    public boolean addVideo(Video video) {
+       if(isValid(video)) {
+           videos.add(video);
+           return true;
+       }
+       return false;
+    }
+
+    private boolean isValid(Video video) {
+        if (video.getTitle() == null || video.getDescription() == null) {
+            return false;
+        }
+        return true;
     }
 }
