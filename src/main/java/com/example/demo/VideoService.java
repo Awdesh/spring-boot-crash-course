@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,13 @@ import java.util.List;
 public class VideoService {
 
     static List<Video> videos = new ArrayList<>();
+
+    @Autowired
+    VideoRepository videoRepository;
+
+//    public VideoService(VideoRepository videoRepository) {
+//        this.videoRepository = videoRepository;
+//    }
 
     static {
         videos.add(new Video("Intro", "Spring boot introduction"));
@@ -31,16 +39,20 @@ public class VideoService {
         return null;
     }
 
-    public boolean addVideo(Video video) {
-       if(isValid(video)) {
-           videos.add(video);
-           return true;
-       }
-       return false;
+    public boolean save(Video video) {
+        if(isValid(video)) {
+            videos.add(video);
+            return true;
+        }
+        return false;
     }
 
-    private boolean isValid(Video video) {
-        if (video.getTitle() == null || video.getDescription() == null) {
+    public void saveToDB(Video video) {
+        videoRepository.save(video);
+    }
+
+    public boolean isValid(Video video) {
+        if(video.getTitle() == null || video.getDescription() == null) {
             return false;
         }
         return true;

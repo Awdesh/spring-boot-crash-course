@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ public class VideoController {
     public ResponseEntity<List<Video>> getVideo(@RequestParam (required = false) String title) {
         if(title == null) {
             return ResponseEntity.ok(videoService.getVideos());
-            //return new ResponseEntity<>(videoService.getVideos(), HttpStatus.OK);
         }
 
        List<Video> foundVideos = new ArrayList<>();
@@ -36,10 +36,12 @@ public class VideoController {
     }
 
     @PostMapping("/videos")
-    public ResponseEntity<String> addVideo(@RequestBody Video video) {
-        boolean hasAdded = videoService.addVideo(video);
-        if(hasAdded)
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity<String> addVideos(@RequestBody Video video) {
+        videoService.saveToDB(video);
+//        if(hasAdded) {
+            return ResponseEntity.ok().build();
+//        }
+//        return ResponseEntity.badRequest().build();
     }
+
 }
