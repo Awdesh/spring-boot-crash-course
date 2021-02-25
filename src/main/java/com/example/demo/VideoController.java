@@ -18,7 +18,7 @@ public class VideoController {
     @GetMapping("/videos")
     public ResponseEntity<List<Video>> getVideo(@RequestParam (required = false) String title) {
         if(title == null) {
-            return ResponseEntity.ok(videoService.getVideos());
+            return ResponseEntity.ok(videoService.getVideosFromDB());
         }
 
        List<Video> foundVideos = new ArrayList<>();

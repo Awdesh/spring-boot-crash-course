@@ -19,6 +19,10 @@ public class Video {
 
     private String description;
 
+    public Video() {
+
+    }
+
     public Video(String title, String description) {
         this.title = title;
         this.description = description;

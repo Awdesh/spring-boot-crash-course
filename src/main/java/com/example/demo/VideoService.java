@@ -17,10 +17,6 @@ public class VideoService {
     @Autowired
     VideoRepository videoRepository;
 
-//    public VideoService(VideoRepository videoRepository) {
-//        this.videoRepository = videoRepository;
-//    }
-
     static {
         videos.add(new Video("Intro", "Spring boot introduction"));
         videos.add(new Video("Chapter-1", "Spring boot First Chapter"));
@@ -49,6 +45,10 @@ public class VideoService {
 
     public void saveToDB(Video video) {
         videoRepository.save(video);
+    }
+
+    public List<Video> getVideosFromDB() {
+        return videoRepository.findAll();
     }
 
     public boolean isValid(Video video) {
