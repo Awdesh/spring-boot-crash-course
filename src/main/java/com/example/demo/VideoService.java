@@ -51,6 +51,10 @@ public class VideoService {
         return videoRepository.findAll();
     }
 
+    public Video getVideo(Video video) {
+        return videoRepository.findByTitle(video);
+    }
+
     public boolean isValid(Video video) {
         if(video.getTitle() == null || video.getDescription() == null) {
             return false;
