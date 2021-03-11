@@ -37,11 +37,10 @@ public class VideoController {
 
     @PostMapping("/videos")
     public ResponseEntity<String> addVideos(@RequestBody Video video) {
-        videoService.saveToDB(video);
-//        if(hasAdded) {
-            return ResponseEntity.ok().build();
-//        }
-//        return ResponseEntity.badRequest().build();
+        boolean hasAdded = videoService.saveToDB(video);
+        if(hasAdded) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.badRequest().build();
     }
-
 }
