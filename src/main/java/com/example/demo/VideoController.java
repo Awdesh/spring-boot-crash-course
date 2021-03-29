@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,23 +21,19 @@ public class VideoController {
         if(title == null) {
             return ResponseEntity.ok(videoService.getVideosFromDB());
         }
-
        List<Video> foundVideos = new ArrayList<>();
-
        Video video = videoService.getVideoByTitle(title);
        if(video != null) {
            foundVideos.add(video);
        }
-
        if(foundVideos.isEmpty()) {
            throw new VideoNotFoundException();
        }
-
        return ResponseEntity.ok(foundVideos);
     }
 
     @PostMapping("/videos")
-    public ResponseEntity<String> addVideos(@RequestBody Video video) {
+    public ResponseEntity<String> addVideos(@Valid @RequestBody Video video) {
         boolean hasAdded = videoService.saveToDB(video);
         if(hasAdded) {
             return ResponseEntity.status(HttpStatus.CREATED).build();

@@ -1,22 +1,25 @@
 package com.example.demo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.NonNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table
 public class Video {
 
     @Id
     @GeneratedValue
     private Integer id;
 
+    @NotBlank
     private String title;
 
+    @NotBlank
+    @Size(max=20)
     private String description;
 
     public Video() {

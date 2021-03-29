@@ -24,11 +24,13 @@ public class VideoService {
     }
 
     public boolean saveToDB(Video video) {
-        if(isValid(video)) {
-            videoRepository.save(video);
-            return true;
-        }
-        return false;
+        videoRepository.save(video);
+        return true;
+//        if(isValid(video)) {
+//            videoRepository.save(video);
+//            return true;
+//        }
+//        return false;
     }
 
     public List<Video> getVideosFromDB() {
